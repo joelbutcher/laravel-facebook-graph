@@ -1,0 +1,57 @@
+{
+    "name": "joelbutcher/laravel-facebook-graph",
+    "description": " Laravel wrapper for the Facebook Graph PHP 8 SDK",
+    "keywords": ["laravel", "php", "php8", "facebook", "facebook-graph", "graph-sdk"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/joelbutcher/laravel-facebook-graph/issues",
+        "source": "https://github.com/joelbutcher/laravel-facebook-graph"
+    },
+    "authors": [
+        {
+            "name": "Joel Butcher",
+            "email": "joel@joelbutcher.co.uk"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0",
+        "joelbutcher/facebook-graph-sdk": "@dev",
+        "symfony/http-client": "^5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4",
+        "mockery/mockery": "^1.4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "JoelButcher\\Facebook\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JoelButcher\\Facebook\\Tests\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "JoelButcher\\Facebook\\FacebookServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": {
+        "joelbutcher/facebook-graph-sdk": {
+            "type": "path",
+            "url": "./../php-graph-sdk"
+        }
+    }
+}
