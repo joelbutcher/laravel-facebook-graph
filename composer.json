@@ -1,6 +1,6 @@
 {
     "name": "joelbutcher/laravel-facebook-graph",
-    "description": " Laravel wrapper for the Facebook Graph PHP 8 SDK",
+    "description": "Laravel wrapper for the Facebook Graph PHP 8 SDK",
     "keywords": ["laravel", "php", "php8", "facebook", "facebook-graph", "graph-sdk"],
     "license": "MIT",
     "support": {
@@ -16,7 +16,7 @@
     "require": {
         "php": "^7.4|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0",
-        "joelbutcher/facebook-graph-sdk": "@dev",
+        "joelbutcher/facebook-graph-sdk": "^6.0.0",
         "symfony/http-client": "^5.3"
     },
     "require-dev": {
@@ -47,11 +47,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "joelbutcher/facebook-graph-sdk": {
-            "type": "path",
-            "url": "./../php-graph-sdk"
-        }
-    }
+    "prefer-stable": true
 }
