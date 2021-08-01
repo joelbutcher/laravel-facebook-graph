@@ -130,7 +130,7 @@ class FacebookTest extends TestCase
 
         /** @var \Facebook\Facebook|\Mockery\MockInterface $base */
         $base = m::mock(BaseFacebook::class, [array_merge($this->config, [
-            'persistent_data_handler' => $persistentDataHandler
+            'persistent_data_handler' => $persistentDataHandler,
         ])])->makePartial();
 
         $oAuth2Client = new FooOAuth2Client($base->getApplication(), $base->getClient(), 'v1337');
