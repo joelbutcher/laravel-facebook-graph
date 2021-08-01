@@ -17,7 +17,7 @@ use JoelButcher\Facebook\Traits\MakesFacebookRequests;
  * @method string getReAuthenticationUrl($redirectUrl, array $scope = [], $separator = '&')
  * @method string getAccessToken($redirectUrl = null)
  *
- * @see \Facebook\Helper\FacebookRedirectLoginHelper
+ * @see \Facebook\Helper\RedirectLoginHelper
  */
 class Facebook
 {
