@@ -20,12 +20,13 @@ use Illuminate\Cache\CacheManager;
 
 class CachePersistentDataHandler implements PersistentDataInterface
 {
-    public function __construct(protected CacheManager $cache)
+    protected $cache;
+    public function __construct(CacheManager $cache)
     {
-        //
+        $this->cache = $cache;
     }
 
-    public function get(string | int $key): mixed
+    public function get($key)
     {
         if ($value = $this->cache->pull($key)) {
             $this->cache->forget($key);
@@ -34,7 +35,7 @@ class CachePersistentDataHandler implements PersistentDataInterface
         return $value;
     }
 
-    public function set(string $key, mixed $value): void
+    public function set($key, $value)
     {
         $this->cache->put($key, $value);
     }
