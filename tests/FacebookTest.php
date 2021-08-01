@@ -120,7 +120,7 @@ class FacebookTest extends TestCase
         $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode(static::REDIRECT_URL), $redirect);
     }
 
-    public function testGetsAnAccessToken()
+    public function testItGetsAnAccessToken()
     {
         $_GET['code'] = 'foo_code';
         $_GET['state'] = 'foo_state';
