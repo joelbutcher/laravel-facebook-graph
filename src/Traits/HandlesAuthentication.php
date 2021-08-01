@@ -6,6 +6,7 @@ use Facebook\Helper\RedirectLoginHelper;
 
 /**
  * @property array $config
+ * @method \Facebook\Facebook getFacebook()
  *
  * @see \JoelButcher\Facebook\Facebook
  */
@@ -26,7 +27,7 @@ trait HandlesAuthentication
     public function getLoginHelper(): ?RedirectLoginHelper
     {
         if (! $this->loginHelper) {
-            $this->loginHelper = $this->facebook->getRedirectLoginHelper();
+            $this->loginHelper = $this->getFacebook()->getRedirectLoginHelper();
         }
 
         return $this->loginHelper;
@@ -41,14 +42,36 @@ trait HandlesAuthentication
      */
     public function getRedirect(?string $redirectUrl = null, array $scopes = []): string
     {
-        $url = $redirectUrl ?? $this->config['redirect'] ?? null;
+        $url = $redirectUrl ?? $this->config['redirect_uri'] ?? null;
 
         if (! $url) {
             throw new \InvalidArgumentException('A valid redirect URL is required');
         }
 
-        $scopes = !empty($scopes) ? $scopes : $this->config['scopes'] ?? ['email', 'public_profile'];
+        $scopes = !empty($scopes) ? $scopes : ($this->config['scopes'] ?? ['email', 'public_profile']);
 
         return $this->getLoginHelper()->getLoginUrl($url, $scopes);
+    }
+
+    /**
+     * Dynamically handle calls to the class.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     *
+     * @throws \BadMethodCallException
+     */
+    public function __call($method, $parameters)
+    {
+        if (! is_callable([$this->getLoginHelper(), $method])) {
+            throw new \BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.',
+                get_class($this->getLoginHelper()),
+                $method
+            ));
+        }
+
+        return $this->getLoginHelper()->$method(...$parameters);
     }
 }

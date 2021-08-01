@@ -5,7 +5,7 @@ namespace JoelButcher\Facebook\Traits;
 use Facebook\Response;
 
 /**
- * @property \Facebook\Facebook $facebook
+ * @method \Facebook\Facebook getFacebook()
  * @method \Facebook\Helper\RedirectLoginHelper getLoginHelper()
  *
  * @see \JoelButcher\Facebook\Facebook
@@ -117,13 +117,13 @@ trait MakesFacebookRequests
      */
     public function send(string $method, string $endpoint, array $params = []): Response
     {
-        $this->response = $this->facebook->sendRequest(
+        $this->response = $this->getFacebook()->sendRequest(
             $method,
             $endpoint,
             $params,
             $this->getToken(),
             $this->eTag,
-            $this->graphVersion ?? $this->facebook->getDefaultGraphVersion()
+            $this->graphVersion ?? $this->getFacebook()->getDefaultGraphVersion()
         );
 
         return $this->response;
