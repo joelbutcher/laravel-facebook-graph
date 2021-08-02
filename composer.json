@@ -1,6 +1,6 @@
 {
     "name": "joelbutcher/laravel-facebook-graph",
-    "description": "Laravel wrapper for the Facebook Graph PHP 8 SDK",
+    "description": "Laravel wrapper for the Facebook Graph SDK for PHP 7.4 and PHP 8.",
     "keywords": ["laravel", "php", "php8", "facebook", "facebook-graph", "graph-sdk"],
     "license": "MIT",
     "support": {
