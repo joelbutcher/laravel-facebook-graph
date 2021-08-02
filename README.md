@@ -4,14 +4,14 @@
     <a href="https://github.com/joelbutcher/laravel-facebook-graph/actions">
         <img src="https://github.com/joelbutcher/laravel-facebook-graph/workflows/tests/badge.svg" alt="Build Status">
     </a>
-    <a href="https://packagist.org/packages/joelbutcher/larave-facebook-graph">
-        <img src="https://img.shields.io/packagist/dt/joelbutcher/larave-facebook-graph" alt="Total Downloads">
+    <a href="https://packagist.org/packages/joelbutcher/laravel-facebook-graph">
+        <img src="https://img.shields.io/packagist/dt/joelbutcher/laravel-facebook-graph" alt="Total Downloads">
     </a>
-    <a href="https://packagist.org/packages/joelbutcher/larave-facebook-graph">
-        <img src="https://img.shields.io/packagist/v/joelbutcher/larave-facebook-graph" alt="Latest Stable Version">
+    <a href="https://packagist.org/packages/joelbutcher/laravel-facebook-graph">
+        <img src="https://img.shields.io/packagist/v/joelbutcher/laravel-facebook-graph" alt="Latest Stable Version">
     </a>
-    <a href="https://packagist.org/packages/joelbutcher/larave-facebook-graph">
-        <img src="https://img.shields.io/packagist/l/joelbutcher/larave-facebook-graph" alt="License">
+    <a href="https://packagist.org/packages/joelbutcher/laravel-facebook-graph">
+        <img src="https://img.shields.io/packagist/l/joelbutcher/laravel-facebook-graph" alt="License">
     </a>
 </p>
 
