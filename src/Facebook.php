@@ -58,6 +58,7 @@ class Facebook
      * Get the base Facebook instance.
      *
      * @return \Facebook\Facebook
+     *
      * @throws \Facebook\Exception\SDKException
      */
     public function getFacebook(): Base
@@ -74,6 +75,7 @@ class Facebook
      *
      * @param  array  $params
      * @return \Facebook\GraphNode\GraphUser|null
+     *
      * @throws \Facebook\Exception\SDKException
      */
     public function getUser(array $params = []): ?GraphUser
@@ -87,6 +89,7 @@ class Facebook
      * @param  string  $method
      * @param  array  $parameters
      * @return mixed
+     *
      * @throws \Facebook\Exception\SDKException
      */
     public function __call($method, $parameters)

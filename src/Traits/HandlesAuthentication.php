@@ -6,6 +6,7 @@ use Facebook\Helper\RedirectLoginHelper;
 
 /**
  * @property array $config
+ *
  * @method \Facebook\Facebook getFacebook()
  *
  * @see \JoelButcher\Facebook\Facebook
@@ -23,6 +24,7 @@ trait HandlesAuthentication
      * Get the redirect login helper instance.
      *
      * @return \Facebook\Helper\RedirectLoginHelper
+     *
      * @throws \Facebook\Exception\SDKException
      */
     public function getLoginHelper(): ?RedirectLoginHelper
@@ -40,6 +42,7 @@ trait HandlesAuthentication
      * @param  string|null  $redirectUrl
      * @param  array  $scopes
      * @return string
+     *
      * @throws \Facebook\Exception\SDKException
      */
     public function getRedirect(?string $redirectUrl = null, array $scopes = []): string
@@ -50,7 +53,7 @@ trait HandlesAuthentication
             throw new \InvalidArgumentException('A valid redirect URL is required');
         }
 
-        $scopes = !empty($scopes) ? $scopes : ($this->config['scopes'] ?? ['email', 'public_profile']);
+        $scopes = ! empty($scopes) ? $scopes : ($this->config['scopes'] ?? ['email', 'public_profile']);
 
         return $this->getLoginHelper()->getLoginUrl($url, $scopes);
     }
