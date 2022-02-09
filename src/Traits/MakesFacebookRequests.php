@@ -94,8 +94,8 @@ trait MakesFacebookRequests
     /**
      * Sends a DELETE request to Graph and returns the result.
      *
-     * @param string  $endpoint
-     * @param array  $params
+     * @param  string  $endpoint
+     * @param  array  $params
      * @return \Facebook\Response
      *
      * @throws \Facebook\Exceptions\FacebookSDKException

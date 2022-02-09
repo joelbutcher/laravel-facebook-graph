@@ -47,7 +47,7 @@ class Facebook
     /**
      * Create a new Facebook wrapper.
      *
-     * @param array $config
+     * @param  array  $config
      */
     public function __construct(array $config = [])
     {
