@@ -143,6 +143,8 @@ trait MakesFacebookRequests
      * Get the token to use in authenticated user requests.
      *
      * @return string|null
+     *
+     * @throws \Facebook\Exception\SDKException
      */
     public function getToken(): ?string
     {
