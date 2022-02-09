@@ -94,8 +94,8 @@ trait MakesFacebookRequests
     /**
      * Sends a DELETE request to Graph and returns the result.
      *
-     * @param string  $endpoint
-     * @param array  $params
+     * @param  string  $endpoint
+     * @param  array  $params
      * @return \Facebook\Response
      *
      * @throws \Facebook\Exceptions\FacebookSDKException
@@ -143,6 +143,8 @@ trait MakesFacebookRequests
      * Get the token to use in authenticated user requests.
      *
      * @return string|null
+     *
+     * @throws \Facebook\Exception\SDKException
      */
     public function getToken(): ?string
     {

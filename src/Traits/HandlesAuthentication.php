@@ -6,6 +6,7 @@ use Facebook\Helper\RedirectLoginHelper;
 
 /**
  * @property array $config
+ *
  * @method \Facebook\Facebook getFacebook()
  *
  * @see \JoelButcher\Facebook\Facebook
@@ -23,6 +24,8 @@ trait HandlesAuthentication
      * Get the redirect login helper instance.
      *
      * @return \Facebook\Helper\RedirectLoginHelper
+     *
+     * @throws \Facebook\Exception\SDKException
      */
     public function getLoginHelper(): ?RedirectLoginHelper
     {
@@ -39,6 +42,8 @@ trait HandlesAuthentication
      * @param  string|null  $redirectUrl
      * @param  array  $scopes
      * @return string
+     *
+     * @throws \Facebook\Exception\SDKException
      */
     public function getRedirect(?string $redirectUrl = null, array $scopes = []): string
     {
@@ -61,6 +66,7 @@ trait HandlesAuthentication
      * @return mixed
      *
      * @throws \BadMethodCallException
+     * @throws \Facebook\Exception\SDKException
      */
     public function __call($method, $parameters)
     {
