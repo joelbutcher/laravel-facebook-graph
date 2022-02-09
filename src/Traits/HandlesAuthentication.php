@@ -6,6 +6,7 @@ use Facebook\Helper\RedirectLoginHelper;
 
 /**
  * @property array $config
+ *
  * @method \Facebook\Facebook getFacebook()
  *
  * @see \JoelButcher\Facebook\Facebook
