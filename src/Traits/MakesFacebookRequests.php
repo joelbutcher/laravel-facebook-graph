@@ -69,7 +69,6 @@ trait MakesFacebookRequests
      * @param  string  $endpoint
      * @param  array  $params
      * @return \Facebook\Response
-     *
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function get(string $endpoint, array $params = []): Response
@@ -83,7 +82,6 @@ trait MakesFacebookRequests
      * @param  string  $endpoint
      * @param  array  $params
      * @return \Facebook\Response
-     *
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function post(string $endpoint, array $params = []): Response
@@ -94,10 +92,9 @@ trait MakesFacebookRequests
     /**
      * Sends a DELETE request to Graph and returns the result.
      *
-     * @param string  $endpoint
-     * @param array  $params
+     * @param  string  $endpoint
+     * @param  array  $params
      * @return \Facebook\Response
-     *
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function delete(string $endpoint, array $params = []): Response
@@ -112,7 +109,6 @@ trait MakesFacebookRequests
      * @param  string  $endpoint
      * @param  array  $params
      * @return \Facebook\Response
-     *
      * @throws \Facebook\Exceptions\FacebookSDKException
      */
     public function send(string $method, string $endpoint, array $params = []): Response
@@ -143,6 +139,7 @@ trait MakesFacebookRequests
      * Get the token to use in authenticated user requests.
      *
      * @return string|null
+     * @throws \Facebook\Exception\SDKException
      */
     public function getToken(): ?string
     {

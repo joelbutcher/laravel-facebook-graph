@@ -47,7 +47,7 @@ class Facebook
     /**
      * Create a new Facebook wrapper.
      *
-     * @param array $config
+     * @param  array  $config
      */
     public function __construct(array $config = [])
     {
@@ -58,6 +58,7 @@ class Facebook
      * Get the base Facebook instance.
      *
      * @return \Facebook\Facebook
+     * @throws \Facebook\Exception\SDKException
      */
     public function getFacebook(): Base
     {
@@ -72,9 +73,8 @@ class Facebook
      * Get a graph user instance after an authenticated request.
      *
      * @param  array  $params
-     * @param  string|null  $eTag
-     * @param  string|null  $graphVersion
      * @return \Facebook\GraphNode\GraphUser|null
+     * @throws \Facebook\Exception\SDKException
      */
     public function getUser(array $params = []): ?GraphUser
     {
@@ -87,6 +87,7 @@ class Facebook
      * @param  string  $method
      * @param  array  $parameters
      * @return mixed
+     * @throws \Facebook\Exception\SDKException
      */
     public function __call($method, $parameters)
     {
