@@ -53,7 +53,9 @@ trait HandlesAuthentication
             throw new \InvalidArgumentException('A valid redirect URL is required');
         }
 
-        $scopes = ! empty($scopes) ? $scopes : ($this->config['scopes'] ?? ['email', 'public_profile']);
+        $scopes = array_merge($this->config['scopes'] ?? [], [
+            'email', 'public_profile'
+        ]);
 
         return $this->getLoginHelper()->getLoginUrl($url, $scopes);
     }

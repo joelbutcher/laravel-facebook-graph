@@ -122,6 +122,7 @@ class FacebookServiceProvider extends ServiceProvider
                 'app_id' => $app['config']->get('facebook.app_id'),
                 'app_secret' => $app['config']->get('facebook.app_secret'),
                 'redirect_uri' => $app['config']->get('facebook.redirect_uri'),
+                'scopes' => $app['config']->get('facebook.scopes', []),
                 'default_graph_version' => $app['config']->get('facebook.graph_version'),
                 'enable_beta_mode' => $app['config']->get('facebook.beta_mode'),
                 'persistent_data_handler' => $app[PersistentDataInterface::class],
