@@ -2,6 +2,7 @@
 
 namespace JoelButcher\Facebook\Tests;
 
+use JoelButcher\Facebook\Facebook;
 use JoelButcher\Facebook\FacebookServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
@@ -13,7 +14,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected $config = [];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -38,5 +39,14 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [FacebookServiceProvider::class];
+    }
+
+    /**
+     * @param  array  $config
+     * @return \JoelButcher\Facebook\Facebook|\Mockery\MockInterface
+     */
+    public function getFacebookMock(array $config = [])
+    {
+        return \Mockery::mock(Facebook::class, [array_merge($this->config, $config)])->makePartial();
     }
 }

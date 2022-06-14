@@ -2,152 +2,127 @@
 
 namespace JoelButcher\Facebook\Tests;
 
-use Facebook\Application;
-use Facebook\Client;
 use Facebook\Facebook as BaseFacebook;
 use Facebook\PersistentData\InMemoryPersistentDataHandler;
 use JoelButcher\Facebook\Facebook;
 use JoelButcher\Facebook\Tests\Fixtures\FooOAuth2Client;
 use Mockery as m;
 
-class FacebookTest extends TestCase
-{
-    public function testItThrowsForNoAppId()
-    {
-        $this->expectException(\Facebook\Exception\SDKException::class);
-        $facebook = new Facebook(array_merge($this->config, ['app_id' => null]));
-        $facebook->getFacebook();
-    }
+uses(TestCase::class);
 
-    public function testItThrowsForNoAppSecret()
-    {
-        $this->expectException(\Facebook\Exception\SDKException::class);
-        $facebook = new Facebook(array_merge($this->config, ['app_secret' => null]));
-        $facebook->getFacebook();
-    }
+it('throws for no app id', function () {
+    $this->expectException(\Facebook\Exception\SDKException::class);
+    $facebook = new Facebook(array_merge($this->config, ['app_id' => null]));
+    $facebook->getFacebook();
+});
 
-    public function testItThrowsForNoDefaultGraphVersion()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $facebook = new Facebook(array_merge($this->config, ['default_graph_version' => null]));
-        $facebook->getFacebook();
-    }
+it('throws for no app secret', function () {
+    $this->expectException(\Facebook\Exception\SDKException::class);
+    $facebook = new Facebook(array_merge($this->config, ['app_secret' => null]));
+    $facebook->getFacebook();
+});
 
-    public function testItThrowsForInvalidHttpClient()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $facebook = new Facebook(array_merge($this->config, [
-            'http_client' => function () {
-                return null;
-            },
-        ]));
-        $facebook->getFacebook();
-    }
+it('throws for no default graph version', function () {
+    $this->expectException(\InvalidArgumentException::class);
+    $facebook = new Facebook(array_merge($this->config, ['default_graph_version' => null]));
+    $facebook->getFacebook();
+});
 
-    public function testItThrowsForInvalidDataHandler()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $facebook = new Facebook(array_merge($this->config, [
-            'persistent_data_handler' => function () {
-                return null;
-            },
-        ]));
-        $facebook->getFacebook();
-    }
+it('throws for invalid http client ', function () {
+    $this->expectException(\InvalidArgumentException::class);
+    $facebook = new Facebook(array_merge($this->config, [
+        'http_client' => function () {
+            return null;
+        },
+    ]));
+    $facebook->getFacebook();
+});
 
-    public function testItThrowsForInvalidDefaultAccessToken()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $facebook = new Facebook(array_merge($this->config, [
-            'default_access_token' => function () {
-                return null;
-            },
-        ]));
-        $facebook->getFacebook();
-    }
+it('throws for invalid data handler ', function () {
+    $this->expectException(\InvalidArgumentException::class);
+    $facebook = new Facebook(array_merge($this->config, [
+        'persistent_data_handler' => function () {
+            return null;
+        },
+    ]));
+    $facebook->getFacebook();
+});
 
-    public function testItThrowsIfNoRedirectIsConfigured()
-    {
-        $facebook = $this->getFacebookMock([
-            'redirect_uri' => null,
-        ]);
+it('throws for invalid default access token', function () {
+    $this->expectException(\InvalidArgumentException::class);
+    $facebook = new Facebook(array_merge($this->config, [
+        'default_access_token' => function () {
+            return null;
+        },
+    ]));
+    $facebook->getFacebook();
+});
 
-        $this->expectException(\InvalidArgumentException::class);
-        $facebook->getRedirect();
-    }
+it('throws if no redirect is configured', function () {
+    $facebook = $this->getFacebookMock([
+        'redirect_uri' => null,
+    ]);
 
-    public function itReturnsAValidRedirectLoginHelperInstance()
-    {
-        $helper = $this->getFacebookMock()->getLoginHelper();
-        $dataHandler = $helper->getPersistentDataHandler();
-        $urlDetectionHandler = $helper->getUrlDetectionHandler();
-        $this->assertInstanceOf(\Facebook\Helper\RedirectLoginHelper::class, $helper);
-        $this->assertInstanceOf(\Facebook\PersistentData\PersistentDataInterface::class, $dataHandler);
-        $this->assertInstanceOf(\Facebook\Url\UrlDetectionInterface::class, $urlDetectionHandler);
-    }
+    $this->expectException(\InvalidArgumentException::class);
+    $facebook->getRedirect();
+});
 
-    public function testReturnsAValidRedirect()
-    {
-        $redirect = $this->getFacebookMock()->getRedirect();
-        $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
-        $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-        $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode(static::REDIRECT_URL), $redirect);
-    }
+it('returns a valid redirect login helper instance', function () {
+    $helper = $this->getFacebookMock()->getLoginHelper();
+    $dataHandler = $helper->getPersistentDataHandler();
+    $urlDetectionHandler = $helper->getUrlDetectionHandler();
+    $this->assertInstanceOf(\Facebook\Helper\RedirectLoginHelper::class, $helper);
+    $this->assertInstanceOf(\Facebook\PersistentData\PersistentDataInterface::class, $dataHandler);
+    $this->assertInstanceOf(\Facebook\Url\UrlDetectionInterface::class, $urlDetectionHandler);
+});
 
-    public function testItReturnsAValidLogoutUrl()
-    {
-        $redirect = $this->getFacebookMock()->getLogoutUrl('foo-access-token', static::REDIRECT_URL);
-        $this->assertStringContainsStringIgnoringCase('access_token=foo-access-token', $redirect);
-        $this->assertStringContainsStringIgnoringCase('next='.urlencode(static::REDIRECT_URL), $redirect);
-        $this->assertStringContainsStringIgnoringCase('https://www.facebook.com/logout.php', $redirect);
-    }
+it('returns a valid redirect', function () {
+    $redirect = $this->getFacebookMock()->getRedirect();
+    $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
+    $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
+});
 
-    public function testReturnsAValidReRequestUrl()
-    {
-        $redirect = $this->getFacebookMock()->getReRequestUrl(static::REDIRECT_URL);
-        $this->assertStringContainsStringIgnoringCase('auth_type=rerequest', $redirect);
-        $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
-        $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-        $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode(static::REDIRECT_URL), $redirect);
-    }
+it('returns a valid logout url', function () {
+    $redirect = $this->getFacebookMock()->getLogoutUrl('foo-access-token', 'http://invalid.zzz');
+    $this->assertStringContainsStringIgnoringCase('access_token=foo-access-token', $redirect);
+    $this->assertStringContainsStringIgnoringCase('next=' . urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('https://www.facebook.com/logout.php', $redirect);
+});
 
-    public function testReturnsAValidReAuthenticationUrl()
-    {
-        $redirect = $this->getFacebookMock()->getReAuthenticationUrl(static::REDIRECT_URL);
-        $this->assertStringContainsStringIgnoringCase('auth_type=reauthenticate', $redirect);
-        $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
-        $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-        $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode(static::REDIRECT_URL), $redirect);
-    }
+it('a valid re request url', function () {
+    $redirect = $this->getFacebookMock()->getReRequestUrl('http://invalid.zzz');
+    $this->assertStringContainsStringIgnoringCase('auth_type=rerequest', $redirect);
+    $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
+    $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
+});
 
-    public function testItGetsAnAccessToken()
-    {
-        $_GET['code'] = 'foo_code';
-        $_GET['state'] = 'foo_state';
+it('a valid re authentication url', function () {
+    $redirect = $this->getFacebookMock()->getReAuthenticationUrl('http://invalid.zzz');
+    $this->assertStringContainsStringIgnoringCase('auth_type=reauthenticate', $redirect);
+    $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
+    $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
+});
 
-        $persistentDataHandler = new InMemoryPersistentDataHandler;
-        $persistentDataHandler->set('state', 'foo_state');
+it('gets an access token', function () {
+    $_GET['code'] = 'foo_code';
+    $_GET['state'] = 'foo_state';
 
-        /** @var \Facebook\Facebook|\Mockery\MockInterface $base */
-        $base = m::mock(BaseFacebook::class, [array_merge($this->config, [
-            'persistent_data_handler' => $persistentDataHandler,
-        ])])->makePartial();
+    $persistentDataHandler = new InMemoryPersistentDataHandler;
+    $persistentDataHandler->set('state', 'foo_state');
 
-        $oAuth2Client = new FooOAuth2Client($base->getApplication(), $base->getClient(), 'v1337');
-        $base->shouldReceive('getOAuth2Client')->once()->andReturn($oAuth2Client);
+    /** @var \Facebook\Facebook|\Mockery\MockInterface $base */
+    $base = m::mock(BaseFacebook::class, [array_merge($this->config, [
+        'persistent_data_handler' => $persistentDataHandler,
+    ])])->makePartial();
 
-        $facebook = $this->getFacebookMock();
-        $facebook->shouldReceive('getFacebook')->andReturn($base);
-        $accessToken = $facebook->getAccessToken(static::REDIRECT_URL);
-        $this->assertEquals('foo_token_from_code|foo_code|'.self::REDIRECT_URL, (string) $accessToken);
-    }
+    $oAuth2Client = new FooOAuth2Client($base->getApplication(), $base->getClient(), 'v1337');
+    $base->shouldReceive('getOAuth2Client')->once()->andReturn($oAuth2Client);
 
-    /**
-     * @param  array  $config
-     * @return \JoelButcher\Facebook\Facebook|\Mockery\MockInterface
-     */
-    protected function getFacebookMock(array $config = [])
-    {
-        return m::mock(Facebook::class, [array_merge($this->config, $config)])->makePartial();
-    }
-}
+    $facebook = $this->getFacebookMock();
+    $facebook->shouldReceive('getFacebook')->andReturn($base);
+    $accessToken = $facebook->getAccessToken('http://invalid.zzz');
+    $this->assertEquals('foo_token_from_code|foo_code|http://invalid.zzz', (string)$accessToken);
+});
