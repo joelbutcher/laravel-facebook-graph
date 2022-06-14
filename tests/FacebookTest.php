@@ -72,19 +72,29 @@ it('builds default scopes', function () {
     $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
 });
 
-it('merges scopes passed when fetching redirect URLs', function () {
-    $redirect = $this->getFacebookMock()->getRedirect(null, ['publish_actions']);
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_actions,email,public_profile'), $redirect);
-});
-
-it('builds replaces duplicate scopes with defaults', function () {
+it('replaces duplicate scopes from class config', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['email', 'public_profile']])->getRedirect();
     $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
 });
 
-it('builds appends default scopes to requested', function () {
-    $redirect = $this->getFacebookMock(['scopes' => ['publish_actions']])->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_actions,email,public_profile'), $redirect);
+it('replaces duplicate scopes passed to method', function () {
+    $redirect = $this->getFacebookMock()->getRedirect(null, ['email', 'public_profile']);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
+});
+
+it('merges config scopes with default scopes', function () {
+    $redirect = $this->getFacebookMock(['scopes' => ['publish_pages']])->getRedirect();
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_pages,email,public_profile'), $redirect);
+});
+
+it('merges default scopes with scopes passed to method', function () {
+    $redirect = $this->getFacebookMock()->getRedirect(null, ['publish_pages']);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_pages,email,public_profile'), $redirect);
+});
+
+it('merges config scopes and scopes passed to the method with default scopes to', function () {
+    $redirect = $this->getFacebookMock(['scopes' => ['publish_pages']])->getRedirect(null, ['publish_video']);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_pages,publish_video,email,public_profile'), $redirect);
 });
 
 it('returns a valid redirect login helper instance', function () {
