@@ -80,13 +80,13 @@ it('returns a valid redirect', function () {
     $redirect = $this->getFacebookMock()->getRedirect();
     $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
     $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode('http://invalid.zzz'), $redirect);
 });
 
 it('returns a valid logout url', function () {
     $redirect = $this->getFacebookMock()->getLogoutUrl('foo-access-token', 'http://invalid.zzz');
     $this->assertStringContainsStringIgnoringCase('access_token=foo-access-token', $redirect);
-    $this->assertStringContainsStringIgnoringCase('next=' . urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('next='.urlencode('http://invalid.zzz'), $redirect);
     $this->assertStringContainsStringIgnoringCase('https://www.facebook.com/logout.php', $redirect);
 });
 
@@ -95,7 +95,7 @@ it('a valid re request url', function () {
     $this->assertStringContainsStringIgnoringCase('auth_type=rerequest', $redirect);
     $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
     $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode('http://invalid.zzz'), $redirect);
 });
 
 it('a valid re authentication url', function () {
@@ -103,7 +103,7 @@ it('a valid re authentication url', function () {
     $this->assertStringContainsStringIgnoringCase('auth_type=reauthenticate', $redirect);
     $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
     $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode('http://invalid.zzz'), $redirect);
 });
 
 it('gets an access token', function () {
@@ -124,5 +124,5 @@ it('gets an access token', function () {
     $facebook = $this->getFacebookMock();
     $facebook->shouldReceive('getFacebook')->andReturn($base);
     $accessToken = $facebook->getAccessToken('http://invalid.zzz');
-    $this->assertEquals('foo_token_from_code|foo_code|http://invalid.zzz', (string)$accessToken);
+    $this->assertEquals('foo_token_from_code|foo_code|http://invalid.zzz', (string) $accessToken);
 });
