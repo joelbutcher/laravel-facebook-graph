@@ -54,7 +54,7 @@ trait HandlesAuthentication
         }
 
         $scopes = array_merge($this->config['scopes'] ?? [], [
-            'email', 'public_profile'
+            'email', 'public_profile',
         ]);
 
         return $this->getLoginHelper()->getLoginUrl($url, $scopes);

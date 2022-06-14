@@ -69,17 +69,17 @@ it('throws if no redirect is configured', function () {
 
 it('builds default scopes', function () {
     $redirect = $this->getFacebookMock()->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
 });
 
 it('builds replaces duplicate scopes with defaults', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['email', 'public_profile']])->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
 });
 
 it('builds appends default scopes to requested', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['publish_actions']])->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('publish_actions,email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_actions,email,public_profile'), $redirect);
 });
 
 it('returns a valid redirect login helper instance', function () {
