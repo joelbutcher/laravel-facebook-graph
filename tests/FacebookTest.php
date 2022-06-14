@@ -72,6 +72,11 @@ it('builds default scopes', function () {
     $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
 });
 
+it('merges scopes passed when fetching redirect URLs', function () {
+    $redirect = $this->getFacebookMock()->getRedirect(null, ['publish_actions']);
+    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_actions,email,public_profile'), $redirect);
+});
+
 it('builds replaces duplicate scopes with defaults', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['email', 'public_profile']])->getRedirect();
     $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
