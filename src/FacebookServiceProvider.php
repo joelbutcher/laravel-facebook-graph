@@ -8,7 +8,6 @@ use Facebook\Url\UrlDetectionInterface;
 use Http\Client\HttpClient;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use JoelButcher\Facebook\Facades\Facebook as FacebookFacade;
 
 class FacebookServiceProvider extends ServiceProvider
 {
