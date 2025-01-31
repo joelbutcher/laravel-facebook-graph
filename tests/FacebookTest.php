@@ -69,32 +69,32 @@ it('throws if no redirect is configured', function () {
 
 it('builds default scopes', function () {
     $redirect = $this->getFacebookMock()->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('email,public_profile'), $redirect);
 });
 
 it('replaces duplicate scopes from class config', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['email', 'public_profile']])->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('email,public_profile'), $redirect);
 });
 
 it('replaces duplicate scopes passed to method', function () {
     $redirect = $this->getFacebookMock()->getRedirect(null, ['email', 'public_profile']);
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('email,public_profile'), $redirect);
 });
 
 it('merges config scopes with default scopes', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['publish_pages']])->getRedirect();
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_pages,email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('publish_pages,email,public_profile'), $redirect);
 });
 
 it('merges default scopes with scopes passed to method', function () {
     $redirect = $this->getFacebookMock()->getRedirect(null, ['publish_pages']);
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_pages,email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('publish_pages,email,public_profile'), $redirect);
 });
 
 it('merges config scopes and scopes passed to the method with default scopes to', function () {
     $redirect = $this->getFacebookMock(['scopes' => ['publish_pages']])->getRedirect(null, ['publish_video']);
-    $this->assertStringContainsStringIgnoringCase('scope='.urlencode('publish_pages,publish_video,email,public_profile'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('scope=' . urlencode('publish_pages,publish_video,email,public_profile'), $redirect);
 });
 
 it('returns a valid redirect login helper instance', function () {
@@ -110,13 +110,13 @@ it('returns a valid redirect', function () {
     $redirect = $this->getFacebookMock()->getRedirect();
     $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
     $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-    $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
 });
 
 it('returns a valid logout url', function () {
     $redirect = $this->getFacebookMock()->getLogoutUrl('foo-access-token', 'http://invalid.zzz');
     $this->assertStringContainsStringIgnoringCase('access_token=foo-access-token', $redirect);
-    $this->assertStringContainsStringIgnoringCase('next='.urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('next=' . urlencode('http://invalid.zzz'), $redirect);
     $this->assertStringContainsStringIgnoringCase('https://www.facebook.com/logout.php', $redirect);
 });
 
@@ -125,7 +125,7 @@ it('a valid re request url', function () {
     $this->assertStringContainsStringIgnoringCase('auth_type=rerequest', $redirect);
     $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
     $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-    $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
 });
 
 it('a valid re authentication url', function () {
@@ -133,14 +133,14 @@ it('a valid re authentication url', function () {
     $this->assertStringContainsStringIgnoringCase('auth_type=reauthenticate', $redirect);
     $this->assertStringContainsStringIgnoringCase('response_type=code', $redirect);
     $this->assertStringContainsStringIgnoringCase('client_id=123456789', $redirect);
-    $this->assertStringContainsStringIgnoringCase('redirect_uri='.urlencode('http://invalid.zzz'), $redirect);
+    $this->assertStringContainsStringIgnoringCase('redirect_uri=' . urlencode('http://invalid.zzz'), $redirect);
 });
 
 it('gets an access token', function () {
     $_GET['code'] = 'foo_code';
     $_GET['state'] = 'foo_state';
 
-    $persistentDataHandler = new InMemoryPersistentDataHandler;
+    $persistentDataHandler = new InMemoryPersistentDataHandler();
     $persistentDataHandler->set('state', 'foo_state');
 
     /** @var \Facebook\Facebook|\Mockery\MockInterface $base */
