@@ -55,6 +55,10 @@ jobs:
           tools: composer:v2
           coverage: none
 
+      - name: Remove Laravel Pint
+        if: matrix.php == '7.3' || matrix.php == '7.4' || matrix.php == '8.0'
+        run: composer remove --dev laravel/pint --no-update
+
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-progress
 
