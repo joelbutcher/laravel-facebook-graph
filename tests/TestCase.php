@@ -4,6 +4,7 @@ namespace JoelButcher\Facebook\Tests;
 
 use JoelButcher\Facebook\Facebook;
 use JoelButcher\Facebook\FacebookServiceProvider;
+use Psr\Http\Client\ClientInterface;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -23,6 +24,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'app_secret' => $this->app['config']->get('facebook.app_secret'),
             'redirect_uri' => $this->app['config']->get('facebook.redirect_uri'),
             'default_graph_version' => $this->app['config']->get('facebook.graph_version'),
+            'http_client' => $this->app[ClientInterface::class]
         ];
     }
 

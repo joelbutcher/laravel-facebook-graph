@@ -5,9 +5,10 @@ namespace JoelButcher\Facebook;
 use Facebook\PersistentData\PersistentDataInterface;
 use Facebook\Url\UrlDetectionHandler;
 use Facebook\Url\UrlDetectionInterface;
-use Http\Client\HttpClient;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use Psr\Http\Client\ClientInterface;
 
 class FacebookServiceProvider extends ServiceProvider
 {
@@ -76,8 +77,8 @@ class FacebookServiceProvider extends ServiceProvider
      */
     protected function registerDefaultHttpClient(): void
     {
-        $this->app->singleton(HttpClient::class, function () {
-            return null;
+        $this->app->singleton(ClientInterface::class, function () {
+            return new Client();
         });
     }
 
@@ -125,7 +126,7 @@ class FacebookServiceProvider extends ServiceProvider
                 'default_graph_version' => $app['config']->get('facebook.graph_version'),
                 'enable_beta_mode' => $app['config']->get('facebook.beta_mode'),
                 'persistent_data_handler' => $app[PersistentDataInterface::class],
-                'http_client' => $app[HttpClient::class],
+                'http_client' => $app[ClientInterface::class],
                 'url_detection_handler' => $app[UrlDetectionInterface::class],
             ]);
         });
