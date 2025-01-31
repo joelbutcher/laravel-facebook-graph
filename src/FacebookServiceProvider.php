@@ -67,7 +67,7 @@ class FacebookServiceProvider extends ServiceProvider
      */
     protected function getConfigPath(): string
     {
-        return __DIR__.'/../config/config.php';
+        return __DIR__ . '/../config/config.php';
     }
 
     /**
@@ -90,7 +90,7 @@ class FacebookServiceProvider extends ServiceProvider
     protected function registerUrlDetectionHandler(): void
     {
         $this->app->singleton(UrlDetectionInterface::class, function () {
-            return new UrlDetectionHandler;
+            return new UrlDetectionHandler();
         });
     }
 
