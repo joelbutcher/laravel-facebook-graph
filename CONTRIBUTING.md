@@ -43,7 +43,7 @@ $ ./vendor/bin/phpunit
 
 ## Running PHP Code Sniffer
 
-You can install [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer) globally with composer.
+You can install [PHP Code Sniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer) globally with composer.
 
 ``` bash
 $ composer global require squizlabs/php_codesniffer
